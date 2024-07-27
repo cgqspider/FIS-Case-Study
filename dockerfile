@@ -21,7 +21,5 @@ RUN cp FIS-Case-Study/* /usr/share/nginx/html
 # Expose port 80 for the web server
 EXPOSE 80
 
-ENTRYPOINT ["bash", "-c", "git pull origin main && exec bash"]
-
 # Start Nginx when the container starts
 CMD ["nginx", "-g", "daemon off;"]
