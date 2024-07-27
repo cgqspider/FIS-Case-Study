@@ -1,30 +1,20 @@
-pipeline {
-    agent any
+# Use the official Nginx image as a base
+FROM nginx:latest
 
-    stages {
-        stage('Cleanup') {
-            steps {
-                sh 'docker stop $(docker ps -aq) && docker rm -f $(docker ps -aq)'
-                sh 'docker rmi -f $(docker images -q)'
-            }
-        }
-        stage('Checkout') {
-            steps {
-                git branch: 'ain',
-                    url: 'https://github.com/cgqspider/FIS-Case-Study.git'
-            }
-        }
-        stage('Build') {
-            steps {
-                def randomName = UUID.randomUUID().toString().replaceAll('-', '')
-                sh "docker build -t ${randomName}."
-                env.IMAGE_NAME = randomName
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh "docker run -d -p 8082:80 ${IMAGE_NAME}"
-            }
-        }
-    }
-}
+# Install git
+RUN apt-get update && apt-get install -y git
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Clone the HTML repository
+RUN git clone https://github.com/cgqspider/FIS-Case-Study.git
+
+# Move the cloned repository to the Nginx document root
+RUN mv FIS-Case-Study/index.html /usr/share/nginx/html
+
+# Expose port 80 for the web server
+EXPOSE 80
+
+# Start Nginx when the container starts
+CMD ["nginx", "-g", "daemon off;"]
