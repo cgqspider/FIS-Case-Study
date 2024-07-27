@@ -10,12 +10,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'sudo docker build -t my-app .'
+                sh 'docker build -t my-app .'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'sudo docker run -d -p 8082:80 my-app'
+                sh 'docker run -d -p 8082:80 my-app'
             }
         }
     }
