@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y git
 WORKDIR /app
 
 # Clone the HTML repository
-RUN https://github.com/cgqspider/FIS-Case-Study.git
+RUN git clone https://github.com/cgqspider/FIS-Case-Study.git
 
 # Move the cloned repository to the Nginx document root
 RUN mv FIS-Case-Study/index.html /usr/share/nginx/html
