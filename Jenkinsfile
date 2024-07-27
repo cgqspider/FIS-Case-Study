@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker run -d -p 8082:80 my-app'
+                sh 'docker rm -f $(docker ps -aq --filter publish=8082) && docker run -d -p 8082:80 my-app'
             }
         }
     }
