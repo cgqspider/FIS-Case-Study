@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'docker build -t my-app .'
+                sh 'docker rmi $(docker images -q --filter reference=my-app) && docker build -t my-app .'
             }
         }
         stage('Deploy') {
