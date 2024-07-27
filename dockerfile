@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -y git
 # Set the working directory to /app
 WORKDIR /app
 
+RUN rm -rf FIS-Case-Study
+
 # Clone the HTML repository
 RUN git clone https://github.com/cgqspider/FIS-Case-Study.git
 
