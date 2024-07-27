@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker rmi -f $(docker images -q) && docker run -d -p 8082:80 my-app'
+                sh 'docker run -d -p 8082:80 my-app'
             }
         }
     }
