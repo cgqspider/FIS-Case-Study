@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     stages {
+        stage('Cleanup') {
+            steps {
+                sh 'docker stop $(docker ps -aq) && docker rm -f $(docker ps -aq)'
+                sh 'docker rmi -f $(docker images -q)'
+            }
+        }
         stage('Checkout') {
             steps {
                 git branch: 'main',
@@ -10,7 +16,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'docker rm -f $(docker ps -aq --filter publish=8082) && docker build -t my-app .'
+                sh 'docker build -t my-app .'
             }
         }
         stage('Deploy') {
