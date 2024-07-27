@@ -10,18 +10,20 @@ pipeline {
         }
         stage('Checkout') {
             steps {
-                git branch: 'main',
+                git branch: 'ain',
                     url: 'https://github.com/cgqspider/FIS-Case-Study.git'
             }
         }
         stage('Build') {
             steps {
-                sh 'docker build -t my-app .'
+                def randomName = UUID.randomUUID().toString().replaceAll('-', '')
+                sh "docker build -t ${randomName}."
+                env.IMAGE_NAME = randomName
             }
         }
         stage('Deploy') {
             steps {
-                sh 'docker run -d -p 8082:80 my-app'
+                sh "docker run -d -p 8082:80 ${IMAGE_NAME}"
             }
         }
     }
