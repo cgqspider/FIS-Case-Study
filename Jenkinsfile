@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/your-repo/your-project.git'
+                    url: 'https://github.com/cgqspider/FIS-Case-Study.git'
             }
         }
         stage('Build') {
