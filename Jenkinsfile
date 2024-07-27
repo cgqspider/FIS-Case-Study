@@ -10,12 +10,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'docker rmi -f $(docker images -q) && docker build -t my-app .'
+                sh 'docker rm -f $(docker ps -aq --filter publish=8082) && docker build -t my-app .'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'docker rm -f $(docker ps -aq --filter publish=8082) && docker run -d -p 8082:80 my-app'
+                sh 'docker rmi -f $(docker images -q) && docker run -d -p 8082:80 my-app'
             }
         }
     }
