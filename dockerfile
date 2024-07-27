@@ -11,7 +11,7 @@ WORKDIR /app
 RUN https://github.com/cgqspider/FIS-Case-Study.git
 
 # Move the cloned repository to the Nginx document root
-RUN mv AasthaArora/index.html /usr/share/nginx/html
+RUN mv FIS-Case-Study/index.html /usr/share/nginx/html
 
 # Expose port 80 for the web server
 EXPOSE 80
